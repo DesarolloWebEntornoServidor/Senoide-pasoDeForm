@@ -35,6 +35,7 @@ namespace Practica_w11
         private void btnDibujar_Click(object sender, EventArgs e)
         {
             // Y = A*seno(x * n * 2π /p)
+            double a = 2 * Math.PI;
         }
 
         private void label2_Click(object sender, EventArgs e)
