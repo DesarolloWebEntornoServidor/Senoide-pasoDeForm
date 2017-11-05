@@ -12,19 +12,23 @@ namespace Practica_w11
 {
     public partial class PracticaW11 : Form
     {
+         Point[] puntos;
+        Color colorPanel;
+        Color colorTrazo;
+         Pen pen;
+        float grosor;
+        float numCiclos = 0;
+        float numFases = 0;
+        int aY = 0;
+
+
         public PracticaW11()
         {
             InitializeComponent();
-        }
 
-        private void lbOffset_Click(object sender, EventArgs e)
-        {
+            btnBorrar.Hide();
 
-        }
-
-        private void cbRojo_CheckedChanged(object sender, EventArgs e)
-        {
-
+            colorPanel = Color.White;
         }
 
 
@@ -33,40 +37,47 @@ namespace Practica_w11
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            grafico = panelDibujo.CreateGraphics();
-            grafico.Clear(panelDibujo.BackColor);
+            // grafico = form2.PanelDibujo.CreateGraphics();
+            // grafico.Clear(form2.PanelDibujo.BackColor);
             showLine = 0;
         }
 
         private void btnDibujar_Click(object sender, EventArgs e)
         {
+            Form2 form2 = new Form2(colorTrazo, grosor, colorPanel, puntos, aY);
 
+            pen = new Pen(lbColorTrazo.BackColor, (float)(cbGrosor.SelectedItem));
 
-            Point[] puntos = new Point[panelDibujo.Width];
+            puntos = new Point[form2.panelDibujo.Width];
 
-            grafico = panelDibujo.CreateGraphics();
+             aY = trkbAmplitud.Value;
 
+            int i = 0;
 
-            int aY = trkbAmplitud.Value;
-
-            for (int i = 0; i < panelDibujo.Width; i++)
+            for (i = 0; i < form2.panelDibujo.Width; i++)
             {
                 puntos[i].X = i;
-                puntos[i].Y = panelDibujo.Height / 2 - (int)(aY * Math.Sin(((double)nudDesfase.Value * Math.PI / 180) + i * (double)nudCiclos.Value * 2 * Math.PI / panelDibujo.Width)) + (int)nudOffset.Value;
+                puntos[i].Y = form2.panelDibujo.Height / 2 - (int)(aY * Math.Sin(((double)nudDesfase.Value * Math.PI / 180) + i * (double)nudCiclos.Value * 2 * Math.PI / form2.panelDibujo.Width)) + (int)nudOffset.Value;
 
             }
-            if (showLine == 0)
-            {
-                Pen pen1 = new Pen(lbColorTrazo.BackColor, (float)(cbGrosor.SelectedItem));
-                grafico.DrawLine(pen1, 0, panelDibujo.Height / 2, panelDibujo.Width, panelDibujo.Height / 2);
-                showLine = 1;
-                
-            }
+
+            grosor = (float)(cbGrosor.SelectedItem);
+            colorTrazo = lbColorTrazo.BackColor;
+
+            form2 = new Form2(colorTrazo, grosor, colorPanel, puntos, aY);
+
+            form2.Show();
+
+            grafico = form2.panelDibujo.CreateGraphics();
+
+            form2.panelDibujo.BackColor = colorPanel;
+
+            if(aY > 0)
+                grafico.DrawLine(pen, 0, form2.panelDibujo.Height / 2, form2.panelDibujo.Width, form2.panelDibujo.Height / 2);
+
+            grafico.DrawLines(pen, puntos);
 
 
-            Pen pen = new Pen(lbColorTrazo.BackColor, (float)(cbGrosor.SelectedItem));
-
-            grafico.DrawLines(pen,puntos);
 
         }
 
@@ -78,33 +89,61 @@ namespace Practica_w11
 
             lbColorTrazo.ForeColor = colorDialog1.Color;
 
+            colorTrazo = lbColorTrazo.BackColor;
 
         }
 
         private void rbBlanco_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbBlanco.Checked)
-                panelDibujo.BackColor = Color.White;
-            else if (rbNegro.Checked)
-                panelDibujo.BackColor = Color.Black;
-            else if (rbRojo.Checked)
-                panelDibujo.BackColor = Color.Red;
-            else if (rbVerde.Checked)
-                panelDibujo.BackColor = Color.Green;
-            else if (rbAzul.Checked)
-                panelDibujo.BackColor = Color.Blue;
+            //if (rbBlanco.Checked)
+            //    lbColor.BackColor = Color.White;
+            //else if (rbNegro.Checked)
+            //    lbColor.BackColor = Color.Black;
+            //else if (rbRojo.Checked)
+            //    lbColor.BackColor = Color.Red;
+            //else if (rbVerde.Checked)
+            //    lbColor.BackColor = Color.Green;
+            //else if (rbAzul.Checked)
+            //    lbColor.BackColor = Color.Blue;
 
+
+            if (rbBlanco.Checked)
+                colorPanel = Color.White;
+            else if (rbNegro.Checked)
+                colorPanel = Color.Black;
+            else if (rbRojo.Checked)
+                colorPanel = Color.Red;
+            else if (rbVerde.Checked)
+                colorPanel = Color.Green;
+            else if (rbAzul.Checked)
+                colorPanel = Color.Blue;
         }
 
         private void PracticaW11_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 2; i < 11; i++)
             {
                 cbGrosor.Items.Add(i/2F);
             }
 
-            cbGrosor.SelectedIndex = 4;
+            cbGrosor.SelectedIndex = 3;
 
+        }
+
+        private void cbGrosor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            grosor = (float)(cbGrosor.SelectedItem);
+
+        }
+
+        private void nudCiclos_ValueChanged(object sender, EventArgs e)
+        {
+            numCiclos = (float)nudCiclos.Value;
+        }
+
+        private void nudDesfase_ValueChanged(object sender, EventArgs e)
+        {
+            numFases = (float)nudDesfase.Value;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -112,6 +151,9 @@ namespace Practica_w11
             float pos = (265 - (trkbAmplitud.Value) * 0.9F);
             lbAmplitud.Text = trkbAmplitud.Value.ToString();
             lbAmplitud.Location = (new Point(54, (int)pos));
+
+            aY = trkbAmplitud.Value;
+
         }
 
 

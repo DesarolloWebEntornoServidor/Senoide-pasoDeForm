@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PracticaW11));
-            this.panelDibujo = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.lbAmplitude = new System.Windows.Forms.Label();
             this.lbNumCiclos = new System.Windows.Forms.Label();
             this.lbOffset = new System.Windows.Forms.Label();
@@ -54,7 +52,6 @@
             this.btnDibujar = new System.Windows.Forms.Button();
             this.trkbAmplitud = new System.Windows.Forms.TrackBar();
             this.lbAmplitud = new System.Windows.Forms.Label();
-            this.panelDibujo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCiclos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDesfase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudOffset)).BeginInit();
@@ -62,25 +59,6 @@
             this.gbFondo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkbAmplitud)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panelDibujo
-            // 
-            this.panelDibujo.BackColor = System.Drawing.Color.White;
-            this.panelDibujo.Controls.Add(this.label1);
-            this.panelDibujo.Location = new System.Drawing.Point(87, 35);
-            this.panelDibujo.Name = "panelDibujo";
-            this.panelDibujo.Size = new System.Drawing.Size(800, 500);
-            this.panelDibujo.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(-19, 222);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(12, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "0";
             // 
             // lbAmplitude
             // 
@@ -96,7 +74,7 @@
             // 
             this.lbNumCiclos.AutoSize = true;
             this.lbNumCiclos.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNumCiclos.Location = new System.Drawing.Point(12, 323);
+            this.lbNumCiclos.Location = new System.Drawing.Point(164, 51);
             this.lbNumCiclos.Name = "lbNumCiclos";
             this.lbNumCiclos.Size = new System.Drawing.Size(53, 12);
             this.lbNumCiclos.TabIndex = 3;
@@ -106,18 +84,17 @@
             // 
             this.lbOffset.AutoSize = true;
             this.lbOffset.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbOffset.Location = new System.Drawing.Point(12, 466);
+            this.lbOffset.Location = new System.Drawing.Point(164, 194);
             this.lbOffset.Name = "lbOffset";
             this.lbOffset.Size = new System.Drawing.Size(39, 12);
             this.lbOffset.TabIndex = 4;
             this.lbOffset.Text = "Offset";
-            this.lbOffset.Click += new System.EventHandler(this.lbOffset_Click);
             // 
             // lbDesfase
             // 
             this.lbDesfase.AutoSize = true;
             this.lbDesfase.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDesfase.Location = new System.Drawing.Point(12, 390);
+            this.lbDesfase.Location = new System.Drawing.Point(164, 118);
             this.lbDesfase.Name = "lbDesfase";
             this.lbDesfase.Size = new System.Drawing.Size(50, 12);
             this.lbDesfase.TabIndex = 5;
@@ -131,7 +108,7 @@
             0,
             0,
             65536});
-            this.nudCiclos.Location = new System.Drawing.Point(15, 340);
+            this.nudCiclos.Location = new System.Drawing.Point(167, 68);
             this.nudCiclos.Maximum = new decimal(new int[] {
             20,
             0,
@@ -150,10 +127,11 @@
             0,
             0,
             0});
+            this.nudCiclos.ValueChanged += new System.EventHandler(this.nudCiclos_ValueChanged);
             // 
             // nudDesfase
             // 
-            this.nudDesfase.Location = new System.Drawing.Point(15, 408);
+            this.nudDesfase.Location = new System.Drawing.Point(167, 136);
             this.nudDesfase.Maximum = new decimal(new int[] {
             360,
             0,
@@ -167,10 +145,11 @@
             this.nudDesfase.Name = "nudDesfase";
             this.nudDesfase.Size = new System.Drawing.Size(45, 20);
             this.nudDesfase.TabIndex = 7;
+            this.nudDesfase.ValueChanged += new System.EventHandler(this.nudDesfase_ValueChanged);
             // 
             // nudOffset
             // 
-            this.nudOffset.Location = new System.Drawing.Point(15, 482);
+            this.nudOffset.Location = new System.Drawing.Point(167, 210);
             this.nudOffset.Maximum = new decimal(new int[] {
             250,
             0,
@@ -192,7 +171,7 @@
             this.Trazo.Controls.Add(this.lbGrosor);
             this.Trazo.Controls.Add(this.cbGrosor);
             this.Trazo.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Trazo.Location = new System.Drawing.Point(905, 51);
+            this.Trazo.Location = new System.Drawing.Point(298, 67);
             this.Trazo.Name = "Trazo";
             this.Trazo.Size = new System.Drawing.Size(93, 139);
             this.Trazo.TabIndex = 9;
@@ -241,6 +220,7 @@
             this.cbGrosor.TabIndex = 0;
             this.cbGrosor.Text = "2,5";
             this.cbGrosor.ValueMember = "2,5";
+            this.cbGrosor.SelectedIndexChanged += new System.EventHandler(this.cbGrosor_SelectedIndexChanged);
             // 
             // gbFondo
             // 
@@ -250,7 +230,7 @@
             this.gbFondo.Controls.Add(this.rbRojo);
             this.gbFondo.Controls.Add(this.rbBlanco);
             this.gbFondo.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbFondo.Location = new System.Drawing.Point(905, 207);
+            this.gbFondo.Location = new System.Drawing.Point(455, 49);
             this.gbFondo.Name = "gbFondo";
             this.gbFondo.Size = new System.Drawing.Size(93, 173);
             this.gbFondo.TabIndex = 10;
@@ -329,7 +309,7 @@
             // 
             this.btnBorrar.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btnBorrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBorrar.Location = new System.Drawing.Point(916, 408);
+            this.btnBorrar.Location = new System.Drawing.Point(343, 290);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(77, 29);
             this.btnBorrar.TabIndex = 11;
@@ -341,9 +321,9 @@
             // 
             this.btnDibujar.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.btnDibujar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDibujar.Location = new System.Drawing.Point(912, 455);
+            this.btnDibujar.Location = new System.Drawing.Point(180, 290);
             this.btnDibujar.Name = "btnDibujar";
-            this.btnDibujar.Size = new System.Drawing.Size(86, 33);
+            this.btnDibujar.Size = new System.Drawing.Size(99, 33);
             this.btnDibujar.TabIndex = 12;
             this.btnDibujar.Text = "Dibujar";
             this.btnDibujar.UseVisualStyleBackColor = false;
@@ -375,7 +355,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1030, 646);
+            this.ClientSize = new System.Drawing.Size(644, 398);
             this.Controls.Add(this.lbAmplitud);
             this.Controls.Add(this.trkbAmplitud);
             this.Controls.Add(this.btnDibujar);
@@ -389,13 +369,10 @@
             this.Controls.Add(this.lbOffset);
             this.Controls.Add(this.lbNumCiclos);
             this.Controls.Add(this.lbAmplitude);
-            this.Controls.Add(this.panelDibujo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PracticaW11";
             this.Text = "Diseño de Onda Senoidal";
             this.Load += new System.EventHandler(this.PracticaW11_Load);
-            this.panelDibujo.ResumeLayout(false);
-            this.panelDibujo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCiclos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDesfase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudOffset)).EndInit();
@@ -410,8 +387,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Panel panelDibujo;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbAmplitude;
         private System.Windows.Forms.Label lbNumCiclos;
         private System.Windows.Forms.Label lbOffset;
